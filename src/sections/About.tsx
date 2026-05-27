@@ -157,7 +157,7 @@ export default function About() {
           className="opacity-0 translate-x-[30px]"
         >
           <img
-            src="/images/portrait.jpg"
+            src="/images/portrait.png"
             alt="Shib Sankar Paul"
             style={{
               width: '100%',
