@@ -123,7 +123,7 @@ export default function Contact() {
           {/* Contact details */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <a
-              href="mailto:shibsankarpaul@email.com"
+              href="mailto:shibsankarpaul.analyst@gmail.com"
               className="font-body flex items-center gap-3 group"
               style={{
                 fontSize: '1rem',
@@ -140,7 +140,7 @@ export default function Contact() {
                 <rect x="2" y="4" width="20" height="16" rx="2" />
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
               </svg>
-              shibsankarpaul@email.com
+              shibsankarpaul.analyst@gmail.com
             </a>
             <div
               className="font-body flex items-center gap-3"
@@ -158,7 +158,7 @@ export default function Contact() {
               Agartala, Tripura, India
             </div>
             <a
-              href="https://linkedin.com/in/shibsankarpaul"
+              href="https://www.linkedin.com/in/shibsankarpaulanalyst"
               target="_blank"
               rel="noopener noreferrer"
               className="font-body flex items-center gap-3 group"
@@ -178,7 +178,7 @@ export default function Contact() {
                 <rect x="2" y="9" width="4" height="12" />
                 <circle cx="4" cy="4" r="2" />
               </svg>
-              linkedin.com/in/shibsankarpaul
+              linkedin.com/in/shibsankarpaulanalyst
             </a>
           </div>
         </div>
