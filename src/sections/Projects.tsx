@@ -289,7 +289,13 @@ export default function Projects() {
             <div
               key={project.num}
               className="gallery-panel"
-              onClick={() => navigate(`/projects/${project.slug}`)}
+              onClick={() => {
+                if (isMobile) {
+                  setActivePanel(activePanel === i ? null : i)
+                } else {
+                  navigate(`/projects/${project.slug}`)
+                }
+              }}
               style={{
                 flex: isMobile ? 'none' : 1,
                 height: isMobile
