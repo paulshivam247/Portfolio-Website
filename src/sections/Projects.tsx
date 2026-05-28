@@ -1,26 +1,191 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useNavigate } from 'react-router-dom'
+
 
 gsap.registerPlugin(ScrollTrigger)
 
 const PROJECTS = [
   {
     num: '01',
+    slug: 'infosys-equity-research',
     title: 'Infosys Equity Research',
-    tags: 'DCF, CCA, Comparable Analysis',
-    desc: 'A comprehensive valuation model for Infosys Ltd. featuring three-statement forecasting, DCF with perpetuity and exit multiple approaches, and trading/transaction comparables. Concluded with a BUY rating and target price derivation.',
+    tags: ['DCF', 'Financial Modeling', 'Valuation'],
+
+    desc: 'Built a comprehensive equity research model for Infosys including DCF valuation, comparable company analysis, and target price estimation.',
     image: '/images/project-01.jpg',
+
+    overview:
+      'This project focused on building a full equity research report and valuation model for Infosys Ltd. using DCF valuation, comparable company analysis, and financial forecasting techniques.',
+
+    deliverables: [
+      {
+        name: 'Excel Financial Model',
+        type: 'pdf',
+        link: 'https://1drv.ms/b/c/bb358f3ab39ffd4d/IQDckZyODxxmQ7ZBhwfgvSayAaVUws1azEFHtepvEJQ63AI',
+      },
+      {
+        name: 'Equity Research Report PDF',
+        type: 'pdf',
+        link: 'https://1drv.ms/b/c/bb358f3ab39ffd4d/IQAJ8KBKKEVCSryGTqXcaXlbAaqvTExH93JnM6_Rl-MeXqM?e=RYzbIW',
+      },
+      {
+        name: 'Infosys Limited — Equity Research Report (PPT)',
+        type: 'ppt',
+        link: 'https://1drv.ms/p/c/bb358f3ab39ffd4d/IQC9DMa7wGsNT7G7baZsIXQtAezzHY6zgwz9lIMrrN46b1U?e=p8aq9l',
+      },
+      {
+        name: 'Presentation Video',
+        type: 'video',
+        link: 'https://youtu.be/3lCwiI4hY7Q',
+      },
+    ],
   },
   {
     num: '02',
-    title: 'Retail Analytics Suite',
-    tags: 'Python, RFM, Market Basket',
+    slug: 'retail-analytics-suite',
+    title: 'Retail Store Sales & Customer Analytics (Exploratory + Predictive)',
+
+    tags: ['Python', 'RFM', 'Market Basket'],
+
     desc: 'End-to-end retail analytics covering RFM customer segmentation, market basket analysis for cross-sell optimization, churn prediction modeling, and an interactive Power BI dashboard with 5 connected report pages.',
+    
     image: '/images/project-02.jpg',
+
+    overview: `
+      An end-to-end retail analytics project covering 2,823 transactions
+      across 92 customers and 19 countries from 2003 to 2005.
+
+      The project spans the full analytics pipeline — from raw data cleaning
+      through exploratory analysis, customer segmentation, and predictive
+      scoring — delivered through a 5-page interactive Power BI dashboard.
+    `,
+
+    theProblem:
+      'A retail business with healthy operational metrics but no structured view of where revenue risk was concentrated, which customers were most valuable, whether discounting strategy was working, and which products had untapped cross-sell potential.',
+
+    whatIDid: `
+      Data Preparation
+
+      Cleaned and standardized raw transactional data including country and state name inconsistencies.
+
+      Resolved 53% missing state values using country-level lookup logic.
+
+      Discovered and handled Python's default treatment of the string 'NA' as NaN — a silent data corruption issue that would have distorted geographic analysis.
+
+      Exploratory Data Analysis
+
+      Performed time series analysis after converting order dates to the correct dtype.
+
+      Built custom YoY and QoQ growth logic in Pandas to handle partial year and quarter comparisons — a trap that tools like Power BI handle automatically but Pandas does not.
+
+      Market & Concentration Analysis
+
+      Quantified geographic revenue concentration.
+
+      Found that 70%+ of revenue originates from 5 countries, with USA contributing 36% of global revenue and California alone accounting for 43% of USA revenue — a significant single-market dependency risk.
+
+      Product Analysis & Market Basket
+
+      Analysed revenue performance across 7 product lines.
+
+      Conducted market basket analysis to identify co-purchase patterns.
+
+      Classic Cars and Vintage Cars co-occurred in 101 orders — the strongest product affinity pair.
+
+      Estimated a 4.33% revenue uplift from a bundling strategy at a 10% conversion rate.
+
+      Customer Segmentation — RFM
+
+      Segmented 92 customers into 6 behavioural groups using Recency, Frequency, and Monetary scoring.
+
+      Champions — just 15% of the customer base — generate 33%+ of total revenue.
+
+      Top 5 customers alone account for 21%+ of revenue, indicating high customer concentration risk alongside geographic concentration.
+
+      Discount & Churn Analysis
+
+      Calculated weighted average discount per transaction and found near-zero correlation (0.03) between discount percentage and quantity ordered — discounting is not driving volume.
+
+      Classic Cars, the highest revenue product line, carries a 23%+ average discount.
+
+      A 5 percentage-point improvement in discount governance is estimated to unlock ~$257K in incremental revenue without increasing sales volume.
+
+      Derived heuristic churn probability scores from RFM segment recency and frequency profiles.
+
+      Power BI Dashboard
+
+      Built a 5-page interactive report — Overview, Sales Trends, Product Performance, Customer RFM, and Market Analysis — with consistent navigation, cross-page slicers, a live data ticker, and custom DAX measures including weighted average discount, RFM-based churn probability, cross-category rate, and market concentration rate.
+      `,
+
+keyFindings: [
+    'Top 5 countries generate 70%+ of revenue',
+    'USA contributes 36% of global revenue',
+    'California contributes 43% of USA revenue',
+    'Q4 dominates every year with sharp Q1 slowdowns',
+    '14 champion customers generate 33% of total revenue',
+    'Discount-volume correlation is only 0.03',
+    '$257K revenue recovery opportunity from discount optimization',
+    'Classic Cars × Vintage Cars bundling shows 4.33% uplift potential',
+    '94.46% order success rate',
+  ],
+
+technicalChallenges: [
+  "Python's silent 'NA' → NaN conversion corrupting geographic data",
+  'Custom partial-year YoY and QoQ logic in Pandas',
+  'DAX context transition through multi-hop relationships (Customer → Sales → Product) requiring explicit FILTER patterns rather than relying on implicit cross-filter propagation',
+  'RFM segmentation thresholds calibrated to a small 92-customer base rather than standard large-dataset percentile splits',
+],
+
+toolsAndTechniques: [
+  'Python',
+  'Pandas',
+  'NumPy',
+  'Power BI',
+  'DAX',
+  'RFM Segmentation',
+  'Market Basket Analysis',
+  'Time Series Analysis',
+  'Data Cleaning',
+  'Exploratory Data Analysis',
+],
+
+outcomes: `
+Three actionable recommendations with quantified revenue impact:
+
+• Discount governance (~$257K)
+• Classic × Vintage bundling (4.33% uplift)
+• Champion retention program targeting the 14 customers responsible for one third of all revenue.
+`,
+
+
+    deliverables: [
+      {
+        name: 'Python Jupyter Notebooks (Data Cleaning, EDA, RFM, Market Basket)',
+        type: 'html',
+        link: 'https://1drv.ms/u/c/bb358f3ab39ffd4d/IQBg7RraAJq3RqHhLEsd3w3pAWq30xgvuQYekgyYSaQ7D1s?e=9G8p4R',
+      },
+      {
+        name: 'Power BI Retail Analytics Dashboard (PBIX)',
+        type: 'pbix',
+        link: 'https://1drv.ms/u/c/bb358f3ab39ffd4d/IQDZz2LYvzqVQLFYZZ_WMrLuAfKFBxUfgFJEo4PkMnppcYc?e=vspTvr',
+      },
+      {
+        name: 'PPT Case Study Presentation',
+        type: 'ppt',
+        link: 'https://1drv.ms/p/c/bb358f3ab39ffd4d/IQApEyKVmRg8Q6yuODyOwJ1sASK49fgn0HStl5BPnySiwZ0?e=7w5p0p',
+      },
+      {
+        name: 'Presentation Video',
+        type: 'video',
+        link: 'https://youtu.be/QXCYoVx5e9k',
+      },
+    ],
   },
   {
     num: '03',
+    slug: 'sales-analytics-ml',
     title: 'Sales Analytics with ML',
     tags: 'Pandas, EDA, Power BI',
     desc: 'Analyzed 2,823 retail transactions across 19 countries using Python. Identified that 70% of revenue concentrates in just 5 markets, Q4 seasonality drives 40% of annual sales, and a 5-point discount governance improvement could unlock $257K in additional margin.',
@@ -28,6 +193,7 @@ const PROJECTS = [
   },
   {
     num: '04',
+    slug: 'credit-card-market-study',
     title: 'Credit Card Market Study',
     tags: 'SQL, Segmentation, Insights',
     desc: 'Segmented credit card customers by behavior and demographics using SQL, identifying high-value clusters and churn-risk profiles. Delivered strategic recommendations for targeted product positioning and retention campaigns.',
@@ -37,6 +203,7 @@ const PROJECTS = [
 
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null)
+  const navigate = useNavigate()
   const galleryRef = useRef<HTMLDivElement>(null)
   const [activePanel, setActivePanel] = useState<number | null>(null)
   const [isMobile, setIsMobile] = useState(false)
@@ -122,7 +289,7 @@ export default function Projects() {
             <div
               key={project.num}
               className="gallery-panel"
-              onClick={() => isMobile && setActivePanel(activePanel === i ? null : i)}
+              onClick={() => navigate(`/projects/${project.slug}`)}
               style={{
                 flex: isMobile ? 'none' : 1,
                 height: isMobile

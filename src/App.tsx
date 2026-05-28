@@ -1,23 +1,19 @@
-import Navigation from './components/Navigation'
-import Hero from './sections/Hero'
-import About from './sections/About'
-import Projects from './sections/Projects'
-import Skills from './sections/Skills'
-import Testimonials from './sections/Testimonials'
-import Contact from './sections/Contact'
-import Footer from './sections/Footer'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+import Home from './pages/Home'
+import ProjectDetail from './pages/ProjectDetail'
 
 export default function App() {
   return (
-    <div>
-      <Navigation />
-      <Hero />
-      <About />
-      <Projects />
-      <Skills />
-      <Testimonials />
-      <Contact />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route
+          path="/projects/:slug"
+          element={<ProjectDetail />}
+        />
+      </Routes>
+    </BrowserRouter>
   )
 }
